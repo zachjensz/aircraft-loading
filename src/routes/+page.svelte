@@ -31,7 +31,7 @@
 	}
 </script>
 
-<h1>Piper Warrior Weight and Balance Calculator</h1>
+<h1>Aircraft Loading Calculator</h1>
 <table>
 	<tr>
 		<th />
