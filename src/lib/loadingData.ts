@@ -1,3 +1,4 @@
+import { derived } from 'svelte/store';
 import { localStore } from './localStore.ts';
 
 export const emptyWeight = localStore('emptyWeight', 1521.45);
@@ -10,3 +11,32 @@ export const rearWeight = localStore('rearWeight', 0);
 export const rearArm = localStore('rearArm', 118.1);
 export const baggageWeight = localStore('baggageWeight', 0);
 export const baggageArm = localStore('baggageArm', 142.8);
+
+export const emptyMoment = derived([emptyWeight, emptyArm], multiply);
+export const frontMoment = derived([frontWeight, frontArm], multiply);
+export const fuelMoment = derived([fuelWeight, fuelArm], multiply);
+export const rearMoment = derived([rearWeight, rearArm], multiply);
+export const baggageMoment = derived([baggageWeight, baggageArm], multiply);
+
+export const totalWeight = derived(
+	[emptyWeight, frontWeight, fuelWeight, rearWeight, baggageWeight],
+	add
+);
+export const totalMoment = derived(
+	[emptyMoment, frontMoment, fuelMoment, rearMoment, baggageMoment],
+	add
+);
+export const totalArm = derived([totalWeight, totalMoment], ([$totalWeight, $totalMoment]) =>
+	twoDecimals($totalMoment / $totalWeight)
+);
+
+function multiply(numbers) {
+	return twoDecimals(numbers.reduce((acc, number) => acc * number));
+}
+function add(numbers) {
+	return twoDecimals(numbers.reduce((acc, number) => acc + number));
+}
+
+function twoDecimals(number) {
+	return Math.round((number + Number.EPSILON) * 100) / 100;
+}
