@@ -1,38 +1,27 @@
-# create-svelte
+# Aircraft Loading Calculator
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+An app for pilots to calculate and visualise weight and balance figures in general aviation aircraft.
 
-## Creating a project
+## Usage
 
-If you're seeing this, you've probably already done this step. Congrats!
+View the [Live Demo](https://zachjensz.github.io/aircraft-loading) or install locally with the directions below.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+Fill out the _weight_ and _arm_ inputs with data relevant to your aircraft.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Installation
 
-## Developing
+1. Download the source code:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+GitHub CLI: `gh repo clone zachjensz/aircraft-loading`
+(or)
+CLI: `git clone https://github.com/zachjensz/aircraft-loading.git`
+(or)
+Click the green "Code" button and "Download ZIP"
 
-```bash
-npm run dev
+2. Install dependencies with [Node](https://nodejs.org/en/download):
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+`/aircraft-loading$ npm i`
 
-## Building
+3. Start the local server and open in browser:
 
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+`npm run dev -- --open`
