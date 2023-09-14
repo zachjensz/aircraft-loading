@@ -4,7 +4,7 @@ Calculator for pilots to visualise weight and balance figures in general aviatio
 
 ## Usage
 
-View the [Live Demo](https://zachjensz.github.io/aircraft-loading) or install locally with the directions below.
+View the [Live Demo](https://aircraft-loading.pages.dev/) or install locally with the directions below.
 
 Fill out the _weight_ and _arm_ inputs with data relevant to your aircraft.
 
