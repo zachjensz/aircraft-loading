@@ -1,5 +1,6 @@
 import { derived } from 'svelte/store';
 import { localStore } from './localStore.ts';
+import { aircraft, mass, PA28_161, default_templates } from './loadingDataDefaults.ts';
 
 export const emptyWeight = localStore('emptyWeight', 1521.45);
 export const emptyArm = localStore('emptyArm', 86.18);
