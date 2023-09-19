@@ -1,24 +1,23 @@
 <script>
-	import {
-		emptyWeight,
-		emptyArm,
-		emptyMoment,
-		frontWeight,
-		frontArm,
-		frontMoment,
-		fuelWeight,
-		fuelArm,
-		fuelMoment,
-		rearWeight,
-		rearArm,
-		rearMoment,
-		baggageWeight,
-		baggageArm,
-		baggageMoment,
-		totalWeight,
-		totalArm,
-		totalMoment
-	} from '$lib/loadingData.ts';
+	import { currentAircraft as ac } from '$lib/loadingData.ts';
+	const totalMoment = derived(
+		[emptyMoment, frontMoment, fuelMoment, rearMoment, baggageMoment],
+		add
+	);
+	const totalArm = derived([totalWeight, totalMoment], ([$totalWeight, $totalMoment]) =>
+		twoDecimals($totalMoment / $totalWeight)
+	);
+
+	function multiply(numbers) {
+		return twoDecimals(numbers.reduce((acc, number) => acc * number));
+	}
+	function add(numbers) {
+		return twoDecimals(numbers.reduce((acc, number) => acc + number));
+	}
+
+	function twoDecimals(number) {
+		return Math.round((number + Number.EPSILON) * 100) / 100;
+	}
 </script>
 
 <h1>Aircraft Loading Calculator</h1>
@@ -29,44 +28,25 @@
 		<th>Arm (in)</th>
 		<th>Moment (lb.in)</th>
 	</tr>
-	<tr>
-		<th>Empty Weight</th>
-		<td><input id="empty-weight" type="number" bind:value={$emptyWeight} /></td>
-		<td><input id="empty-arm" type="number" bind:value={$emptyArm} /></td>
-		<td><output id="empty-moment">{$emptyMoment}</output></td>
-	</tr>
-	<tr>
-		<th>Front Seats</th>
-		<td><input id="front-weight" type="number" bind:value={$frontWeight} /></td>
-		<td><input id="front-arm" type="number" bind:value={$frontArm} /></td>
-		<td><output id="front-moment">{$frontMoment}</output></td>
-	</tr>
-	<tr>
-		<th>Fuel</th>
-		<td><input id="fuel-weight" type="number" bind:value={$fuelWeight} /></td>
-		<td><input id="fuel-arm" type="number" bind:value={$fuelArm} /></td>
-		<td><output id="fuel-moment">{$fuelMoment}</output></td>
-	</tr>
-	<tr>
-		<th>Rear Seats</th>
-		<td><input id="rear-weight" type="number" bind:value={$rearWeight} /></td>
-		<td><input id="rear-arm" type="number" bind:value={$rearArm} /></td>
-		<td><output id="rear-moment">{$rearMoment}</output></td>
-	</tr>
-	<tr>
-		<th>Baggage</th>
-		<td><input id="baggage-weight" type="number" bind:value={$baggageWeight} /></td>
-		<td><input id="baggage-arm" type="number" bind:value={$baggageArm} /></td>
-		<td><output id="baggage-moment">{$baggageMoment}</output></td>
-	</tr>
-	<tr>
-		<th>Total</th>
-		<td><output>{$totalWeight}</output></td>
-		<td><output>{$totalArm}</output></td>
-		<td>
-			<output>{$totalMoment}</output>
-		</td>
-	</tr>
+	{#each $ac.masses as mass}
+		<tr>
+			<th>{mass.name}</th>
+			<td><input id={`${mass.name}-weight`} type="number" bind:value={mass.weightPounds} /></td>
+			<td><input id={`${mass.name}-arm`} type="number" bind:value={mass.armInches} /></td>
+			<td
+				><output id={`${mass.name}-moment`}>{multiply([mass.weightPounds, mass.armInches])}</output
+				></td
+			>
+		</tr>
+	{/each}
+	<!-- <tr> -->
+	<!-- 	<th>Total</th> -->
+	<!-- 	<td><output>{$totalWeight}</output></td> -->
+	<!-- 	<td><output>{$totalArm}</output></td> -->
+	<!-- 	<td> -->
+	<!-- 		<output>{$totalMoment}</output> -->
+	<!-- 	</td> -->
+	<!-- </tr> -->
 </table>
 
 <style>
