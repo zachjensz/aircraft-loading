@@ -1,8 +1,15 @@
 <script>
-	import { currentAircraft as ac } from '$lib/loadingData.ts';
+	import { currentAircraft } from '$lib/loadingData.ts';
 
-	$: totalWeight = twoFrac($ac.masses.reduce((acc, m) => acc + m.weightPounds, 0));
-	$: totalMoment = twoFrac($ac.masses.reduce((acc, m) => acc + m.weightPounds * m.armInches, 0));
+	$: totalWeight = twoFrac(
+		$currentAircraft.masses.reduce((acc, mass) => acc + mass.weightPounds, 0)
+	);
+	$: totalMoment = twoFrac(
+		$currentAircraft.masses.reduce(
+			(acc, mass) => acc + mass.weightPounds * mass.armInches,
+			0
+		)
+	);
 	$: totalArm = twoFrac(totalMoment / totalWeight);
 
 	function twoFrac(number) {
@@ -18,13 +25,26 @@
 		<th>Arm (in)</th>
 		<th>Moment (lb.in)</th>
 	</tr>
-	{#each $ac.masses as mass}
+	{#each $currentAircraft.masses as mass}
 		<tr>
 			<th>{mass.name}</th>
-			<td><input id={`${mass.name}-weight`} type="number" bind:value={mass.weightPounds} /></td>
-			<td><input id={`${mass.name}-arm`} type="number" bind:value={mass.armInches} /></td>
 			<td
-				><output id={`${mass.name}-moment`}>{twoFrac(mass.weightPounds * mass.armInches)}</output
+				><input
+					id={`${mass.name}-weight`}
+					type="number"
+					bind:value={mass.weightPounds}
+				/></td
+			>
+			<td
+				><input
+					id={`${mass.name}-arm`}
+					type="number"
+					bind:value={mass.armInches}
+				/></td
+			>
+			<td
+				><output id={`${mass.name}-moment`}
+					>{twoFrac(mass.weightPounds * mass.armInches)}</output
 				></td
 			>
 		</tr>

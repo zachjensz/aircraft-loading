@@ -4,7 +4,9 @@ export function localStore(key, defaultValue) {
 	const { subscribe, set, update } = store;
 	const isBrowser = typeof window !== 'undefined';
 	set(defaultValue);
-	isBrowser && localStorage.getItem(key) && set(JSON.parse(localStorage.getItem(key)));
+	isBrowser &&
+		localStorage.getItem(key) &&
+		set(JSON.parse(localStorage.getItem(key)));
 	return {
 		subscribe,
 		set: (n) => {
