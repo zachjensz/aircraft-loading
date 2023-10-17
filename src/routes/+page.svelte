@@ -1,21 +1,11 @@
 <script>
 	import { currentAircraft as ac } from '$lib/loadingData.ts';
-	const totalMoment = derived(
-		[emptyMoment, frontMoment, fuelMoment, rearMoment, baggageMoment],
-		add
-	);
-	const totalArm = derived([totalWeight, totalMoment], ([$totalWeight, $totalMoment]) =>
-		twoDecimals($totalMoment / $totalWeight)
-	);
 
-	function multiply(numbers) {
-		return twoDecimals(numbers.reduce((acc, number) => acc * number));
-	}
-	function add(numbers) {
-		return twoDecimals(numbers.reduce((acc, number) => acc + number));
-	}
+	$: totalWeight = twoFrac($ac.masses.reduce((acc, m) => acc + m.weightPounds, 0));
+	$: totalMoment = twoFrac($ac.masses.reduce((acc, m) => acc + m.weightPounds * m.armInches, 0));
+	$: totalArm = twoFrac(totalMoment / totalWeight);
 
-	function twoDecimals(number) {
+	function twoFrac(number) {
 		return Math.round((number + Number.EPSILON) * 100) / 100;
 	}
 </script>
@@ -34,19 +24,19 @@
 			<td><input id={`${mass.name}-weight`} type="number" bind:value={mass.weightPounds} /></td>
 			<td><input id={`${mass.name}-arm`} type="number" bind:value={mass.armInches} /></td>
 			<td
-				><output id={`${mass.name}-moment`}>{multiply([mass.weightPounds, mass.armInches])}</output
+				><output id={`${mass.name}-moment`}>{twoFrac(mass.weightPounds * mass.armInches)}</output
 				></td
 			>
 		</tr>
 	{/each}
-	<!-- <tr> -->
-	<!-- 	<th>Total</th> -->
-	<!-- 	<td><output>{$totalWeight}</output></td> -->
-	<!-- 	<td><output>{$totalArm}</output></td> -->
-	<!-- 	<td> -->
-	<!-- 		<output>{$totalMoment}</output> -->
-	<!-- 	</td> -->
-	<!-- </tr> -->
+	<tr>
+		<th>Total</th>
+		<td><output>{totalWeight}</output></td>
+		<td><output>{totalArm}</output></td>
+		<td>
+			<output>{totalMoment}</output>
+		</td>
+	</tr>
 </table>
 
 <style>

@@ -11,42 +11,27 @@ export const aircraft = {
 	],
 	masses: [
 		{
-			get moment() {
-				return this.weightPounds * this.armInches;
-			},
 			name: 'Empty Weight',
 			weightPounds: 1521.45,
 			armInches: 86.18
 		},
 		{
-			get moment() {
-				return this.weightPounds * this.armInches;
-			},
 			name: 'Front Seats',
 			weightPounds: 0,
 			armInches: 80.5
 		},
 		{
-			get moment() {
-				return this.weightPounds * this.armInches;
-			},
 			name: 'Fuel',
 			weightPounds: 0,
 			armInches: 95,
 			weightMaxPounds: 2179.45
 		},
 		{
-			get moment() {
-				return this.weightPounds * this.armInches;
-			},
 			name: 'Rear Seats',
 			weightPounds: 0,
 			armInches: 118.1
 		},
 		{
-			get moment() {
-				return this.weightPounds * this.armInches;
-			},
 			name: 'Baggage',
 			weightPounds: 0,
 			armInches: 142.8,
