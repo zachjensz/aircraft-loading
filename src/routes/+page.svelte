@@ -18,7 +18,6 @@
 	}
 </script>
 
-<h1>Aircraft Loading Calculator</h1>
 <table>
 	<tr>
 		<th />
