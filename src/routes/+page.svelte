@@ -1,21 +1,11 @@
 <script>
 	import MassItem from '$lib/MassItem.svelte';
-	import { currentAircraft } from '$lib/loadingData.ts';
-
-	$: totalWeight = twoFrac(
-		$currentAircraft.masses.reduce((acc, mass) => acc + mass.weightPounds, 0)
-	);
-	$: totalMoment = twoFrac(
-		$currentAircraft.masses.reduce(
-			(acc, mass) => acc + mass.weightPounds * mass.armInches,
-			0
-		)
-	);
-	$: totalArm = twoFrac(totalMoment / totalWeight);
-
-	function twoFrac(number) {
-		return Math.round((number + Number.EPSILON) * 100) / 100;
-	}
+	import {
+		currentAircraft,
+		totalWeight,
+		totalMoment,
+		totalArm
+	} from '$lib/loadingData.ts';
 </script>
 
 <table>
@@ -30,10 +20,10 @@
 	{/each}
 	<tr>
 		<th>Total</th>
-		<td><output>{totalWeight}</output></td>
-		<td><output>{totalArm}</output></td>
+		<td><output>{$totalWeight}</output></td>
+		<td><output>{$totalArm}</output></td>
 		<td>
-			<output>{totalMoment}</output>
+			<output>{$totalMoment}</output>
 		</td>
 	</tr>
 </table>
