@@ -27,5 +27,5 @@ export const totalArm = derived(currentAircraft, ($currentAircraft) =>
 );
 
 function twoFrac(number) {
-	return Math.round((number + Number.EPSILON) * 100) / 100;
+	return Math.round(number * 100) / 100;
 }
