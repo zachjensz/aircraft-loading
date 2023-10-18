@@ -1,4 +1,5 @@
 <script>
+	import MassItem from '$lib/MassItem.svelte';
 	import { currentAircraft } from '$lib/loadingData.ts';
 
 	$: totalWeight = twoFrac(
@@ -26,28 +27,7 @@
 		<th>Moment (lb.in)</th>
 	</tr>
 	{#each $currentAircraft.masses as mass}
-		<tr>
-			<th>{mass.name}</th>
-			<td
-				><input
-					id={`${mass.name}-weight`}
-					type="number"
-					bind:value={mass.weightPounds}
-				/></td
-			>
-			<td
-				><input
-					id={`${mass.name}-arm`}
-					type="number"
-					bind:value={mass.armInches}
-				/></td
-			>
-			<td
-				><output id={`${mass.name}-moment`}
-					>{twoFrac(mass.weightPounds * mass.armInches)}</output
-				></td
-			>
-		</tr>
+		<MassItem {mass} />
 	{/each}
 	<tr>
 		<th>Total</th>
