@@ -26,8 +26,8 @@
 		<th>Arm (in)</th>
 		<th>Moment (lb.in)</th>
 	</tr>
-	{#each $currentAircraft.masses as mass}
-		<MassItem {mass} />
+	{#each $currentAircraft.masses as mass, massIndex}
+		<MassItem {massIndex} />
 	{/each}
 	<tr>
 		<th>Total</th>
